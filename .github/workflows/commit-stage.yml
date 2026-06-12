@@ -16,11 +16,11 @@ jobs:
     steps:
       - name: Checkout source code
         uses: actions/checkout@v4
-      - name: Set up GraalVM
+      - name: Set up JDK
         uses: actions/setup-java@v4
         with:
-          distribution: graalvm
-          java-version: 21
+          distribution: temurin
+          java-version: 17
           cache: gradle
       - name: Build and test
         run: |
@@ -33,10 +33,10 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push native image
-        run: |
-          ./gradlew bootBuildImage \
-            -PimageName=${{ env.IMAGE_NAME }}:${{ env.VERSION }} \
-            -PregistryUsername=${{ github.actor }} \
-            -PregistryToken=${{ secrets.GITHUB_TOKEN }} \
-            -PregistryUrl=${{ env.REGISTRY }} \
-            -PbuilderImage=paketobuildpacks/builder-jammy-tiny
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: |
+            ${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+            ${{ env.IMAGE_NAME }}:latest
