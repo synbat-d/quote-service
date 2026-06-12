@@ -39,4 +39,4 @@ jobs:
             -PregistryUsername=${{ github.actor }} \
             -PregistryToken=${{ secrets.GITHUB_TOKEN }} \
             -PregistryUrl=${{ env.REGISTRY }} \
-            -PbuilderImage=paketobuildpacks/builder-jammy:tiny
+            -PbuilderImage=paketobuildpacks/builder-jammy:base
