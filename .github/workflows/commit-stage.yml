@@ -38,4 +38,5 @@ jobs:
             -PimageName=${{ env.IMAGE_NAME }}:${{ env.VERSION }} \
             -PregistryUsername=${{ github.actor }} \
             -PregistryToken=${{ secrets.GITHUB_TOKEN }} \
-            -PregistryUrl=${{ env.REGISTRY }}
+            -PregistryUrl=${{ env.REGISTRY }} \
+            -PbuilderImage=paketobuildpacks/builder-jammy:tiny
